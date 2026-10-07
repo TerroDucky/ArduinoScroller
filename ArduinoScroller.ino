@@ -23,5 +23,3 @@ void loop() {
     digitalWrite(PinLED, HIGH);
   }  
 }
-
-// Test 
