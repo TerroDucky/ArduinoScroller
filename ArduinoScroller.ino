@@ -1,4 +1,8 @@
 #include "Keyboard.h"
+#include <U8g2lib.h>
+#include <Wire.h>
+
+U8G2_SH1106_128X64_NONAME_F_HW_I2C display(U8G2_R0);
 
 const int LikeLED         = 2;
 const int LikeButton      = 3;
@@ -7,17 +11,17 @@ const int DownButton      = 7;
 const int UpLED           = 4;  
 const int UpButton        = 5; 
 
-/*const int MuscleSenor1 = A0;
-const int MuscleSenor2 = A1;*/
 
 const int scrollBreak    = 500;
 
 int LikeButtonState = 0; 
 int DownButtonState = 0; 
 int UpButtonState = 0; 
+
 void setup() {
   // initialize control over the keyboard:
   Keyboard.begin();
+  display.begin();
   
   // put your setup code here, to run once:
   pinMode(LikeLED, OUTPUT);
@@ -26,11 +30,14 @@ void setup() {
   pinMode(DownButton, INPUT);
   pinMode(UpLED, OUTPUT);
   pinMode(UpButton, INPUT);
-
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
+  display.clearBuffer();
+  display.setFont(u8g2_font_ncenB08_tr);
+  display.drawStr(5,10,"Start scrolling");
+  display.sendBuffer();
 
   LikeButtonState = digitalRead(LikeButton);
 
